@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo/model/todo.dart';
-import 'package:todo/widgets/create_todo.dart';
+import 'package:todo/widgets/diaplay_create_todo.dart';
 import 'package:todo/widgets/display_todo.dart';
+import 'package:todo/widgets/side_drawer.dart';
 import 'package:todo/widgets/welcome_screen.dart';
 import 'dart:convert';
 
@@ -92,44 +93,15 @@ class _TodoScreenState extends State<TodoScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // something search would not work fine
+            },
             icon: Icon(Icons.search),
             padding: EdgeInsets.only(right: 5),
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 100,
-              child: DrawerHeader(
-                decoration: BoxDecoration(color: Colors.blueAccent[200]),
-                child: Text(
-                  'Welcome $savedUsername',
-                  style: GoogleFonts.lato(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () async {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.remove('username');
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
-                );
-              },
-            )
-          ],
-        ),
-      ),
+      drawer: SideDrawer(savedUsername),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -147,10 +119,10 @@ class _TodoScreenState extends State<TodoScreen> {
           Padding(
             padding: EdgeInsets.only(left: 12, bottom: 16),
             child: Text(
-              "Your plans",
+              "Today's plans",
               style: GoogleFonts.montserrat(
                 fontSize: 16,
-                color: Colors.white60,
+                color: const Color.fromARGB(162, 255, 255, 255),
                 fontWeight: FontWeight.w700,
               ),
             ),

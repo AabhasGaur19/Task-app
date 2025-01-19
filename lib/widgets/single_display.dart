@@ -5,7 +5,7 @@ import 'package:todo/model/todo.dart';
 
 class SingleDisplay extends StatelessWidget{
 
-  SingleDisplay(this.todo,this.onToggleComplete,{super.key});
+  const SingleDisplay(this.todo,this.onToggleComplete,{super.key});
 
   final Todo todo;
   final void Function() onToggleComplete;

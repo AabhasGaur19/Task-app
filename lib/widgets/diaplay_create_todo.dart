@@ -15,29 +15,11 @@ class CreateTodo extends StatefulWidget {
 class _CreateTodoState extends State<CreateTodo> {
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
-  DateTime? _selectedDate;
-
   @override
   void dispose() {
     _descController.dispose();
     _titleController.dispose();
     super.dispose();
-  }
-
-  void _datePicker() async {
-    final now = DateTime.now();
-    final firstDate = now;
-    final lastDate = DateTime(now.year + 1, now.month, now.day);
-
-    final pickedDate = await showDatePicker(
-      context: context,
-      initialDate: now,
-      firstDate: firstDate,
-      lastDate: lastDate,
-    );
-    setState(() {
-      _selectedDate = pickedDate;
-    });
   }
 
   Future<void> _saveTodo(Todo todo) async {
@@ -65,13 +47,15 @@ class _CreateTodoState extends State<CreateTodo> {
     final todo = Todo(
       description: _descController.text,
       title: _titleController.text,
-      date: _selectedDate ?? DateTime.now(),
+      date: _selectedDate,
       isCompleted: false,
     );
 
     await _saveTodo(todo);
     Navigator.pop(context, todo);
   }
+
+  final DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -142,14 +126,8 @@ class _CreateTodoState extends State<CreateTodo> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      _selectedDate == null
-                          ? 'No date selected'
-                          : DateFormat.yMMMMd('en_IN').format(_selectedDate!),
+                      DateFormat.yMMMMd('en_IN').format(_selectedDate),
                       style: TextStyle(fontSize: 16),
-                    ),
-                    IconButton(
-                      onPressed: _datePicker,
-                      icon: Icon(Icons.calendar_month, color: Colors.blueAccent[200]),
                     ),
                   ],
                 ),

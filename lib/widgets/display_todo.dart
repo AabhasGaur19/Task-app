@@ -8,20 +8,6 @@ class DisplayTodo extends StatelessWidget {
   final Todo todo;
   final Function() onToggleComplete;
 
-  String _getDateHeader() {
-    final now = DateTime.now();
-    final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    final todoDate = DateTime(todo.date.year, todo.date.month, todo.date.day);
-
-    if (todoDate.isAtSameMomentAs(DateTime(now.year, now.month, now.day))) {
-      return 'Today';
-    } else if (todoDate.isAtSameMomentAs(tomorrow)) {
-      return 'Tomorrow';
-    } else {
-      return '${todo.date.day}/${todo.date.month}/${todo.date.year}';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,15 +17,7 @@ class DisplayTodo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-            child: Text(
-              _getDateHeader(),
-              style: GoogleFonts.montserrat(
-                fontSize: 18,
-                color: Colors.white60,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
           ),
           Card(
             elevation: 4,

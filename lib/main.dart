@@ -17,9 +17,7 @@ void main() async {
     final prefs = await SharedPreferences.getInstance();
     final String? username = prefs.getString('username');
 
-    runApp(MyApp(
-        initialScreen:
-            username != null ? TodoScreen(username) : const WelcomeScreen()));
+    runApp(MyApp(initialScreen:username != null ? TodoScreen(username) : const WelcomeScreen()));
   });
 }
 
@@ -30,10 +28,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.blue[200],
+        scaffoldBackgroundColor: Colors.blueAccent[200],
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
